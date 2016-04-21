@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ktpoc.tvcomm.consulting">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <permission
+        android:name="com.ktpoc.tvcomm.consulting.permission.Push_MESSAGE"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.ktpoc.tvcomm.consulting.permission.KTPNS_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.tta.push.permission.Push_SEND" />
+    <uses-permission android:name="com.tta.push.permission.Push_RECEIVE" />
+    <uses-permission android:name="com.ktpoc.tvcomm.consulting.permission.Push_MESSAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <permission
+        android:name="com.ktpoc.tvcomm.consulting.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ktpoc.tvcomm.consulting.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name="com.ktpns.lib.service.PushClientService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/service_name" />
+        <service
+            android:name="com.ktpns.lib.service.UserChangeService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/user_service_name" />
+        <service
+            android:name="com.ktpns.lib.service.KeepAliveService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <!-- <service android:name=".GCMIntentService" android:exported="false" /> &lt;!&ndash; exported must be true??? &ndash;&gt; -->
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ktpns.lib.popup.PopupActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <!-- Theme.Transparent isn't exits -->
+        <activity
+            android:name="com.ktpns.lib.popup.GrantedPermission"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <!-- Theme.Transparent isn't exits -->
+
+        <receiver android:name=".PushReceiver">
+            <intent-filter>
+                <action android:name="com.tta.push.intent.receive.REGISTRATION" />
+                <action android:name="com.tta.push.intent.receive.MESSAGE" />
+                <action android:name="com.tta.push.intent.receive.STATUS_OF_SERVICE" />
+                <action android:name="com.tta.push.intent.receive.STATUS_OF_MY_PUSH" />
+
+                <category android:name="com.ktpoc.tvcomm.consulting" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.tta.push.intent.receive.RE_REGISTER" />
+                <action android:name="com.tta.push.intent.receive.SERVICE_AVAILABLE" />
+                <action android:name="com.tta.push.intent.receive.SERVICE_UNAVAILABLE" />
+                <action android:name="com.tta.push.intent.receive.SERVICE_AVAILABILITY" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ktpns.pa.receive.MESSAGE" />
+                <action android:name="com.ktpns.pa.receive.REGISTRATION" />
+                <action android:name="com.ktpns.pa.receive.SERVICE_STATUS" />
+                <action android:name="com.ktpns.pa.receive.UNREGISTERED" />
+
+                <category android:name="com.ktpoc.tvcomm.consulting" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".PushClient"
+            android:enabled="true"
+            android:exported="true"></service>
+    </application>
+
+</manifest>
