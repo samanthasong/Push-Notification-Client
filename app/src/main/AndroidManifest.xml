@@ -49,15 +49,15 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/service_name" />
-        <service
-            android:name="com.ktpns.lib.service.UserChangeService"
-            android:enabled="true"
-            android:exported="true"
-            android:label="@string/user_service_name" />
+        <!-- <service -->
+        <!-- android:name="com.ktpns.lib.service.UserChangeService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/user_service_name" /> -->
         <service
             android:name="com.ktpns.lib.service.KeepAliveService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <!-- <service android:name=".GCMIntentService" android:exported="false" /> &lt;!&ndash; exported must be true??? &ndash;&gt; -->
 
@@ -68,14 +68,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.ktpns.lib.popup.PopupActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <!-- Theme.Transparent isn't exits -->
-        <activity
-            android:name="com.ktpns.lib.popup.GrantedPermission"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <!-- Theme.Transparent isn't exits -->
+
+        <activity android:name=".consultingPopUpActivity">
+         <category android:name = "android.intent.category.DEFAULT"></category>
+
+        </activity>
+
+        <!--<activity-->
+            <!--android:name="com.ktpns.lib.popup.PopupActivity"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />-->
+        <!--&lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt;-->
+        <!--<activity-->
+            <!--android:name="com.ktpns.lib.popup.GrantedPermission"-->
+            <!--android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />-->
+        <!--&lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt;-->
 
         <receiver android:name=".PushReceiver">
             <intent-filter>
@@ -102,10 +108,7 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".PushClient"
-            android:enabled="true"
-            android:exported="true"></service>
+
     </application>
 
 </manifest>
