@@ -81,8 +81,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".consultingPopUpActivity">
-         <category android:name = "android.intent.category.DEFAULT"></category>
+        <activity android:name=".consultingPopUpActivity"
+            android:theme="@style/Theme.Transparent">
+         <category android:name = "android.intent.category.DEFAULT" />
 
         </activity>
 

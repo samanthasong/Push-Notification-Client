@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccessInitialize(KPNSApis kpnsApis) {
                 kpnsApis.register("0WW4I105s0", "TVConsulting01");
                 Log.d(_TAG, "KPNS API 초기화 성공");
+                kpnsApis.getConnectionState();
             }
 
             @Override
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
             }
         });
+
 //        KPNSApis.requestInstance(Context context, new OnKPNSInitializeEventListener() {
 //
 //            @Override

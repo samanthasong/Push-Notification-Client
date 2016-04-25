@@ -78,6 +78,7 @@ public class PushReceiver extends BroadcastReceiver{
                         break;
                     case 1:
                         Log.d(_TAG, "receive.MESSAGE type --> General Push Message");
+                        //TODO: pass it to pop up activity
                         break;
                     default:
                         Log.d(_TAG, "receive.MESSAGE type --> UNKNOWN");
@@ -104,11 +105,16 @@ public class PushReceiver extends BroadcastReceiver{
         }
         /* on RECEIVE REQUEST TO RE-REGISTER referencing 2.1.5 doc */
         if("com.tta.push.intent.receive.RE_REGISTER".equals(action)){
-            Log.d(_TAG, "RECEVICE REQUEST TO RE-REGISTER");
+            Log.d(_TAG, "RECEIVE REQUEST TO RE-REGISTER");
             //KPNSApis.register("0WW4I105s0", "TVConsulting01");
         }else if("com.tta.push.intent.receive.UNREGISTERED".equals(action)){
             //KPNSApis.register("0WW4I105s0", "TVConsulting01");
-            Log.d(_TAG, "RECEVICE REQUEST TO UNREGISTERED");
+            Log.d(_TAG, "RECEIVE REQUEST TO UNREGISTERED");
+        }
+
+        if ("com.tta.push.intent.receive.SERVICE_UNAVAILABLE".equals(action)) {
+            String reason = intent.getStringExtra("reason");
+            Log.d(_TAG,"SERVICE_UNAVAILABLE reason --> " + reason);
         }
     }
 }
