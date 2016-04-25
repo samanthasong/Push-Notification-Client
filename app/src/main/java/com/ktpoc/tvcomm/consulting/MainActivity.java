@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); ;
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mWebView = (WebView)findViewById(R.id.web_view);
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //push message 수신해서 url 정보 받아오면 그 때 웹뷰 연결
-        if(_url != null){
+        if(_url != ""){
             Log.d(_TAG, "Current URL IS --> ");
             loadWebView(_url);
             setWebViewSetting();
