@@ -2,5 +2,5 @@
     <string name="app_name">Consulting</string>
     <string name="service_name">Service Name Counsulting</string>
     <string name="title_activity_consulting_pop_up">ConsultingPopUpActivity</string>
-    <!--<string name="user_service_name">User Service Name what</string>-->
+    <string name="user_service_name">User Service Name</string>
 </resources>

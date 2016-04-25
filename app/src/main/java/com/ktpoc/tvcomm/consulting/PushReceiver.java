@@ -17,6 +17,7 @@ public class PushReceiver extends BroadcastReceiver{
         //TODO: receiving msg and processing msg ~~ popup triggering~
         String action = intent.getAction();
 
+
         /* On REGISTER */
         if("com.tta.push.intent.receive.REGISTRATION".equals(action)){ //version 2.x
             try{
@@ -58,7 +59,7 @@ public class PushReceiver extends BroadcastReceiver{
             }
         } else if ("com.ktpns.pa.receive.SERVICE_STATUS".equals(action)){ //version 1.x
             Log.d(_TAG, "STATUS OF PUSH status  --> " + intent.getStringExtra("status"));
-            Log.d(_TAG, "STATUS OF PUSH details  --> " + intent.getStringExtra("datails"));
+            Log.d(_TAG, "STATUS OF PUSH details  --> " + intent.getStringExtra("datail"));
         }
 
         /* on RECEIVE ACTUAL PUSH MESSAGE */
@@ -100,6 +101,14 @@ public class PushReceiver extends BroadcastReceiver{
             Log.d(_TAG, "PUSH MESSAGE alert --> " + msg1);
             Log.d(_TAG, "PUSH MESSAGE url --> " +msg2);
             Log.d(_TAG, "PUSH MESSAGE msg --> " + msg3);
+        }
+        /* on RECEIVE REQUEST TO RE-REGISTER referencing 2.1.5 doc */
+        if("com.tta.push.intent.receive.RE_REGISTER".equals(action)){
+            Log.d(_TAG, "RECEVICE REQUEST TO RE-REGISTER");
+            //KPNSApis.register("0WW4I105s0", "TVConsulting01");
+        }else if("com.tta.push.intent.receive.UNREGISTERED".equals(action)){
+            //KPNSApis.register("0WW4I105s0", "TVConsulting01");
+            Log.d(_TAG, "RECEVICE REQUEST TO UNREGISTERED");
         }
     }
 }

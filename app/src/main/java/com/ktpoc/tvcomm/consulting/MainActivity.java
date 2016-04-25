@@ -1,5 +1,6 @@
 package com.ktpoc.tvcomm.consulting;
 
+import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,8 @@ import android.webkit.WebViewClient;
 
 import com.ktpns.lib.KPNSApis;
 import com.ktpns.lib.OnKPNSInitializeEventListener;
+import com.ktpns.lib.service.PushClientService;
+import com.ktpns.lib.util.Constant;
 
 //import android.content.Context;
 
@@ -30,29 +33,44 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); ;
         setContentView(R.layout.activity_main);
         mWebView = (WebView)findViewById(R.id.web_view);
 
        //TODO: user input type detection needs to be done firstly
 
         //TODO: ID 발급 받기
+        //KPNS 2.1.5
         KPNSApis.requestInstance(this, new OnKPNSInitializeEventListener() {
-
             @Override
             public void onSuccessInitialize(KPNSApis kpnsApis) {
-                kpnsApis.register("0WW4I105s0", "TVConsulting01"); //param: appId, cpId
+                kpnsApis.register("0WW4I105s0", "TVConsulting01");
+                Log.d(_TAG, "KPNS API 초기화 성공");
             }
 
             @Override
             public void onFailInitialize() {
-                Log.d(_TAG, "KPNS initializing failed!!!");
-                //phone state에 대한 퍼미션 있어야 pushClient로 register하라고 되어 있음 내일하장
-//                if ((context.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)) {
-//                    startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
-//                } else { }
+                Log.d(_TAG, "KPNS API 초기화 실패");
+                startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
             }
         });
+//        KPNSApis.requestInstance(Context context, new OnKPNSInitializeEventListener() {
+//
+//            @Override
+//            public void onSuccessInitialize(KPNSApis kpnsApis) {
+//                kpnsApis.register("0WW4I105s0", "TVConsulting01"); //param: appId, cpId
+//            }
+//
+//            @Override
+//            public void onFailInitialize() {
+//                Log.d(_TAG, "KPNS initializing failed!!!");
+//                startService(new Intent(context, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
+//                //phone state에 대한 퍼미션 있어야 pushClient로 register하라고 되어 있음 내일하장
+////                iif ((context.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)) {
+////                    startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
+////                } else { }
+//            }
+//        });
         //TODO: connect status request
 
         //TODO: 토큰 서버 등록 --> CMS 개발 전까지는token값 그대로 이용
