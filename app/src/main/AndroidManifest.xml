@@ -11,6 +11,10 @@
         android:name="android.hardware.camera2"
         android:required="true" />
 
+    <!--for TC box -->
+    <permission android:name="android.permission.DELETE_PACKAGES" />
+
+
     <!--KPNS Ver 2.2.1-->
     <!--KPNS Ver 2.1.5-->
     <permission
@@ -73,7 +77,8 @@
 
         <!-- <service android:name=".GCMIntentService" android:exported="false" /> &lt;!&ndash; exported must be true??? &ndash;&gt; -->
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -81,8 +86,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".consultingPopUpActivity"
+        <activity
+            android:name=".consultingPopUpActivity"
             android:theme="@style/Theme.Transparent">
+
          <category android:name = "android.intent.category.DEFAULT" />
 
         </activity>
@@ -120,6 +127,7 @@
                 <category android:name="com.ktpoc.tvcomm.consulting" />
             </intent-filter>
         </receiver>
+
         <!-- KPNS 2.1.5 attaching for stabilization -->
         <receiver android:name="com.ktpns.lib.receiver.DeviceEventReceiver">
             <intent-filter>
@@ -146,6 +154,11 @@
             </intent-filter>
 
         </receiver>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

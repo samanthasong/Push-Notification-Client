@@ -9,8 +9,9 @@ import android.util.Log;
  * Created by insam on 2016. 4. 21..
  */
 public class PushReceiver extends BroadcastReceiver{
+
 //TODO:
-    private final String _TAG = "[Push Receiver BR]";
+    private final String _TAG = "[SONG-Push Receiver BR]";
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -25,6 +26,14 @@ public class PushReceiver extends BroadcastReceiver{
                 String error = intent.getStringExtra("error");
                 String tokenStr = new String(token, "UTF-8");
                 Log.d(_TAG, "PUSH REGISTRATION Token STR is  --> " + tokenStr + ", error -->" + error);
+                /* test용 --> message receive 시 전달해야하마 2016.04.25 song*/
+                //Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.consultingPopUpActivity.class);
+                //i.putExtra("receivedMsg", "hello this is push message");
+                //i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+
+                Log.d(_TAG, "Push Message sent to Pop up Activity");
+               // context.startActivity(i);
+
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -40,16 +49,16 @@ public class PushReceiver extends BroadcastReceiver{
                 int status = intent.getIntExtra("status", -2);
                 switch (status){
                     case 0:
-                        Log.d(_TAG, "STATUS OF PUSH  --> disconnected!");
+                        Log.d(_TAG, "STATUS OF PUSH --> disconnected!");
                         break;
                     case 1:
-                        Log.d(_TAG, "STATUS OF PUSH  --> Connected!");
+                        Log.d(_TAG, "STATUS OF PUSH --> Connected!");
                         break;
                     case -1:
-                        Log.d(_TAG, "STATUS OF PUSH  --> unregistered package!");
+                        Log.d(_TAG, "STATUS OF PUSH --> unregistered package!");
                         break;
                     default:
-                        Log.d(_TAG, "STATUS OF PUSH  --> UNKNOWN");
+                        Log.d(_TAG, "STATUS OF PUSH --> UNKNOWN");
                         break;
 
                 }
@@ -79,6 +88,7 @@ public class PushReceiver extends BroadcastReceiver{
                     case 1:
                         Log.d(_TAG, "receive.MESSAGE type --> General Push Message");
                         //TODO: pass it to pop up activity
+//
                         break;
                     default:
                         Log.d(_TAG, "receive.MESSAGE type --> UNKNOWN");
@@ -111,7 +121,7 @@ public class PushReceiver extends BroadcastReceiver{
             //KPNSApis.register("0WW4I105s0", "TVConsulting01");
             Log.d(_TAG, "RECEIVE REQUEST TO UNREGISTERED");
         }
-
+         /* on RECEIVE SERVICE_UNAVAILABLE referencing 2.1.5 doc */
         if ("com.tta.push.intent.receive.SERVICE_UNAVAILABLE".equals(action)) {
             String reason = intent.getStringExtra("reason");
             Log.d(_TAG,"SERVICE_UNAVAILABLE reason --> " + reason);

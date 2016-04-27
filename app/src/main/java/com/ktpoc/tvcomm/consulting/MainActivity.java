@@ -1,6 +1,5 @@
 package com.ktpoc.tvcomm.consulting;
 
-import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,49 +12,60 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.ktpns.lib.KPNSApis;
-import com.ktpns.lib.OnKPNSInitializeEventListener;
-import com.ktpns.lib.service.PushClientService;
-import com.ktpns.lib.util.Constant;
-
 //import android.content.Context;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String _TAG = "[MAIN PAGE ACTIVITY] ";
+    private final String _TAG = "[SONG-MAIN PAGE]";
     private final Handler handler = new Handler();
     private final String THIS_ANDROID_APP = "consultingAndroid";
     public WebView mWebView;
+    private Boolean _isInitialized = false;
 
-    //private final String _url = "https://amuzlab.iptime.org:3000/users/amuzlab";
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private final String _url = "https://amuzlab.iptime.org:3000/users/amuzlabtest";
+    //private final String _url = "https://172.30.1.58:3000/consulting/amuzlab";
     //private final String _url = "https://tvcomm.dlinkddns.com:3000/consulting/amuzlab";
-    private final String _url = "";
+    //private String _url = "http://naver.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mWebView = (WebView)findViewById(R.id.web_view);
+        mWebView = (WebView) findViewById(R.id.web_view);
 
-       //TODO: user input type detection needs to be done firstly
+        //TODO: user input type detection needs to be done firstly
 
         //TODO: ID 발급 받기
         //KPNS 2.1.5
+        /*
         KPNSApis.requestInstance(this, new OnKPNSInitializeEventListener() {
             @Override
             public void onSuccessInitialize(KPNSApis kpnsApis) {
                 kpnsApis.register("0WW4I105s0", "TVConsulting01");
                 Log.d(_TAG, "KPNS API 초기화 성공");
                 kpnsApis.getConnectionState();
+                //TODO: when Token received from push server, this value needs to be saved to Consulting Server or Local Storage
+                _isInitialized = true;
+                if (Prefs.isMainLibApp(MainActivity.this) == true) {
+                    Log.d(_TAG, "THIS IS CONNECTED TO KPNS SERVER");
+                } else {
+                    Log.d(_TAG, "ANOTHER APP CONNECTED TO KPNS SERVER");
+                }
             }
 
             @Override
             public void onFailInitialize() {
                 Log.d(_TAG, "KPNS API 초기화 실패");
-                startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
+               // startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
             }
         });
-
+        */
+        //for KPNS 2.1.2
 //        KPNSApis.requestInstance(Context context, new OnKPNSInitializeEventListener() {
 //
 //            @Override
@@ -78,32 +88,44 @@ public class MainActivity extends AppCompatActivity {
         //TODO: 토큰 서버 등록 --> CMS 개발 전까지는token값 그대로 이용
         //TODO: 리시버에서 수신(push receiver) 및 팝업 액티비티 노출기
         //TODO: 메세지 파싱해서 웹뷰 url 인자로 넘겨주
+        //WHEN PUSH MESSAGE RECEIVED AND POP UP EVENT CONFIRMED
 
-
-        //push message 수신해서 url 정보 받아오면 그 때 웹뷰 연결
-        if(_url != ""){
-            Log.d(_TAG, "Current URL IS --> ");
-            loadWebView(_url);
-            setWebViewSetting();
-        }else{
-            Log.d(_TAG, "No URL LOADED");
-        }
         //TODO: webview load가 완료되고 사용자 이벤트 액션이 발생하면 이벤트 전달 to Consutling TV Web Application
+        mWebView.loadUrl(_url);
+        loadWebView(_url);
+        Log.d(_TAG, "URL -->" +_url);
+        setWebViewSetting();
+
         String currentUserInput = null;
         //bridgeUserEventToJS(currentUserInput);
     }
 
-    private void loadWebView(String url){
+    //    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        Log.d(_TAG, "onResume calling");
+//        Bundle extras = getIntent().getExtras();
+//        if(extras!=null){
+//            String url = extras.getString("url");
+//            _url = url;
+//            loadWebView(_url);
+//            setWebViewSetting();
+//        }else{
+//            Log.d(_TAG, "No URL LOADED");
+//        }
+//    }
+    private void loadWebView(String url) {
+
 
         mWebView.setWebChromeClient(new WebChromeClient() {
 
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
-                Log.d("SONG", "onPermissionRequest");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         request.grant(request.getResources());
+                        Log.d(_TAG, "Permission request");
                     }
                 });
             }
@@ -116,27 +138,37 @@ public class MainActivity extends AppCompatActivity {
                 handler.proceed();
             }
         });
+        /*PackageManager pm = getPackageManager();
+        try{
+            PackageInfo pi = pm.getPackageInfo("com.google.android.webview", 0);
+            Log.d(_TAG, "version name: " + pi.versionName);
+            Log.d(_TAG, "version code: " + pi.versionCode);
 
-        mWebView.loadUrl(url);
-        Log.d(_TAG, "web view loaded - Initial load");
+            mWebView.loadUrl(url);
+        }catch(PackageManager.NameNotFoundException e){
+            Log.d(_TAG, "system webview NAME NOT FOUND EXECEPTION ~");
+        }*/
+
     }
 
-    private void setWebViewSetting(){
+    private void setWebViewSetting() {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-        mWebView.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
+        mWebView.setWebContentsDebuggingEnabled(true);
+        //mWebView.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
         Log.d(_TAG, "CHROME VERSION : " + mWebView.getSettings().getUserAgentString());
     }
 
-     /* JS call the Android's function */
+
+    /* JS call the Android's function */
      /*
         [USAGE -  Web Application에서의 Android's function call usage]
         - window.consultingAndroid.함수();
         - 이 떄 함수는 AndroidBridge 클래스 내 멤버메소드로용~
      */
-    private class AndroidBridge{
+    private class AndroidBridge {
         @JavascriptInterface
-        public void sendResponseFromJS(final String res){
+        public void sendResponseFromJS(final String res) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -148,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Android call the JS's function */
-    private void bridgeUserEventToJS(String userInput){
+    private void bridgeUserEventToJS(String userInput) {
         userInput = "USER EVENT IS : Pointing 2nd Div object";
         mWebView.loadUrl("javascript:onReceiveFromAndroid('USER EVENT SENDING...");
     }

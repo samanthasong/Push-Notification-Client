@@ -28,4 +28,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile files('libs/kt_kpns_lib_2.1.5_R2978P.jar')
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
