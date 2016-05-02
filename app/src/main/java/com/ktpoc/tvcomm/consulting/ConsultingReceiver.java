@@ -68,6 +68,15 @@ public class ConsultingReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             }
         }
+
+        if("com.ktpoc.tvcomm.finish.consult".equals(action)){
+            try{
+
+                //TODO: destroy consulting app
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
 

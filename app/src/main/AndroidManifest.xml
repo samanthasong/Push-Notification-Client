@@ -161,16 +161,17 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.ktpoc.tvcomm.consulting.requestStart" />
-                <action android:name="com.ktpoc.tvcomm.consulting.requestExpertList" />
-
+                <action android:name="com.ktpoc.tvcomm.consulting.start" />
+                <action android:name="com.ktpoc.tvcomm.consulting.information" />
+                <action android:name="com.ktpoc.tvcomm.consulting.menu" />
+                <action android:name="com.ktpoc.tvcomm.consulting.schedule" />
+                <action android:name="com.ktpoc.tvcomm.finish.consult" />
                 <category android:name="com.ktpoc.tvcomm.consulting" />
                 <!-- <action /> -->
             </intent-filter>
         </receiver>
 
         <activity android:name=".UserRegisterActivity" />
-        <activity android:name=".WebviewActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".ExpertsViewActivity" />
         <activity android:name=".ScheduleViewActivity"></activity>
