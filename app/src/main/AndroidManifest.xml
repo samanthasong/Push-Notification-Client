@@ -11,12 +11,11 @@
         android:name="android.hardware.camera2"
         android:required="true" />
 
-    <!--for TC box -->
+    <!-- for TC box -->
     <permission android:name="android.permission.DELETE_PACKAGES" />
 
-
-    <!--KPNS Ver 2.2.1-->
-    <!--KPNS Ver 2.1.5-->
+    <!-- KPNS Ver 2.2.1 -->
+    <!-- KPNS Ver 2.1.5 -->
     <permission
         android:name="com.ktpoc.tvcomm.consulting.permission.Push_MESSAGE"
         android:protectionLevel="signature" />
@@ -24,29 +23,28 @@
         android:name="com.ktpoc.tvcomm.consulting.permission.KTPNS_MESSAGE"
         android:protectionLevel="signature" />
 
-    <!--KPNS Ver 2.2.1-->
+    <!-- KPNS Ver 2.2.1 -->
     <uses-permission android:name="com.tta.push.permission.Push_SEND" />
     <uses-permission android:name="com.tta.push.permission.Push_RECEIVE" />
     <uses-permission android:name="com.ktpoc.tvcomm.consulting.permission.Push_MESSAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
-    <!--KPNS Ver 2.1.5 -->
+    <!-- KPNS Ver 2.1.5 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!-- KPNS 2.1.5-->
+    <!-- KPNS 2.1.5 -->
     <uses-permission android:name="com.ktpoc.tvcomm.consulting.permission.KTPNS_MESSAGE" />
     <uses-permission android:name="com.kt.pns.permission.RECEIVE" />
 
-    <!--KPNS Ver 2.2.1-->
+    <!-- KPNS Ver 2.2.1 -->
     <permission
         android:name="com.ktpoc.tvcomm.consulting.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -65,11 +63,13 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/service_name" />
-        <!--  <service
+        <!--
+         <service
          android:name="com.ktpns.lib.service.UserChangeService"
          android:enabled="true"
          android:exported="true"
-         android:label="@string/user_service_name" />  -->
+         android:label="@string/user_service_name" />
+        -->
         <service
             android:name="com.ktpns.lib.service.KeepAliveService"
             android:enabled="true"
@@ -77,31 +77,27 @@
 
         <!-- <service android:name=".GCMIntentService" android:exported="false" /> &lt;!&ndash; exported must be true??? &ndash;&gt; -->
 
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".consultingPopUpActivity"
             android:theme="@style/Theme.Transparent">
-
-         <category android:name = "android.intent.category.DEFAULT" />
-
+            <category android:name="android.intent.category.DEFAULT" />
         </activity>
 
-        <!--<activity-->
-            <!--android:name="com.ktpns.lib.popup.PopupActivity"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />-->
-        <!--&lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt;-->
-        <!--<activity-->
-            <!--android:name="com.ktpns.lib.popup.GrantedPermission"-->
-            <!--android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />-->
-        <!--&lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt;-->
+        <!-- <activity -->
+        <!-- android:name="com.ktpns.lib.popup.PopupActivity" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" /> -->
+        <!-- &lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt; -->
+        <!-- <activity -->
+        <!-- android:name="com.ktpns.lib.popup.GrantedPermission" -->
+        <!-- android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" /> -->
+        <!-- &lt;!&ndash; Theme.Transparent isn't exits &ndash;&gt; -->
 
         <receiver android:name=".PushReceiver">
             <intent-filter>
@@ -138,13 +134,12 @@
                 <action android:name="com.ktpns.pa.CHECK_SERVICE_PRIORITY" />
                 <action android:name="IPC.PUSH.BR.REC_com.ktpoc.tvcomm.consulting" />
             </intent-filter>
-
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
-                <data android:scheme="package"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
 
+                <data android:scheme="package" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
@@ -152,14 +147,33 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
                 <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
-
         </receiver>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.gms.version" -->
+        <!-- android:value="@integer/google_play_services_version" /> -->
 
+        <receiver
+            android:name=".ConsultingReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ktpoc.tvcomm.consulting.requestStart" />
+                <action android:name="com.ktpoc.tvcomm.consulting.requestExpertList" />
+
+                <category android:name="com.ktpoc.tvcomm.consulting" />
+                <!-- <action /> -->
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".UserRegisterActivity" />
+        <activity android:name=".WebviewActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".ExpertsViewActivity" />
+        <activity android:name=".ScheduleViewActivity"></activity>
     </application>
 
 </manifest>

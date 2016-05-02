@@ -29,10 +29,10 @@ public class PushReceiver extends BroadcastReceiver{
                 /* test용 --> message receive 시 전달해야하마 2016.04.25 song*/
                 //Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.consultingPopUpActivity.class);
                 //i.putExtra("receivedMsg", "hello this is push message");
-                //i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-
-                Log.d(_TAG, "Push Message sent to Pop up Activity");
-               // context.startActivity(i);
+//                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+//
+//                Log.d(_TAG, "Push Message sent to Pop up Activity");
+//                context.startActivity(i);
 
             }catch (Exception e){
                 e.printStackTrace();

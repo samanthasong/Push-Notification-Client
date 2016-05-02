@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mWebView = (WebView) findViewById(R.id.web_view);
 
+        //TODO: Consulting
+
+
         //TODO: user input type detection needs to be done firstly
 
         //TODO: ID 발급 받기
@@ -138,16 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 handler.proceed();
             }
         });
-        /*PackageManager pm = getPackageManager();
-        try{
-            PackageInfo pi = pm.getPackageInfo("com.google.android.webview", 0);
-            Log.d(_TAG, "version name: " + pi.versionName);
-            Log.d(_TAG, "version code: " + pi.versionCode);
-
-            mWebView.loadUrl(url);
-        }catch(PackageManager.NameNotFoundException e){
-            Log.d(_TAG, "system webview NAME NOT FOUND EXECEPTION ~");
-        }*/
 
     }
 
