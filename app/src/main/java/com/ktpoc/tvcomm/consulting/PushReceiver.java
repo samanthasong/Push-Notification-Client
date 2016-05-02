@@ -27,7 +27,7 @@ public class PushReceiver extends BroadcastReceiver{
                 String tokenStr = new String(token, "UTF-8");
                 Log.d(_TAG, "PUSH REGISTRATION Token STR is  --> " + tokenStr + ", error -->" + error);
                 /* test용 --> message receive 시 전달해야하마 2016.04.25 song*/
-                //Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.consultingPopUpActivity.class);
+                //Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ConsultingPopUpActivity.class);
                 //i.putExtra("receivedMsg", "hello this is push message");
 //                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
 //

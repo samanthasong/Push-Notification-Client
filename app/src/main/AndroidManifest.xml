@@ -75,9 +75,9 @@
             android:enabled="true"
             android:exported="true" />
 
-        <!-- <service android:name=".GCMIntentService" android:exported="false" /> &lt;!&ndash; exported must be true??? &ndash;&gt; -->
-
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -85,11 +85,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".consultingPopUpActivity"
+            android:name=".ConsultingPopUpActivity"
             android:theme="@style/Theme.Transparent">
             <category android:name="android.intent.category.DEFAULT" />
         </activity>
-
+        <activity
+            android:name=".UserRegisterActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".HomeActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ExpertsViewActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ScheduleViewActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <!-- <activity -->
         <!-- android:name="com.ktpns.lib.popup.PopupActivity" -->
         <!-- android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" /> -->
@@ -166,15 +177,13 @@
                 <action android:name="com.ktpoc.tvcomm.consulting.menu" />
                 <action android:name="com.ktpoc.tvcomm.consulting.schedule" />
                 <action android:name="com.ktpoc.tvcomm.finish.consult" />
+
                 <category android:name="com.ktpoc.tvcomm.consulting" />
                 <!-- <action /> -->
             </intent-filter>
         </receiver>
 
-        <activity android:name=".UserRegisterActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".ExpertsViewActivity" />
-        <activity android:name=".ScheduleViewActivity"></activity>
+        <activity android:name=".MyMenuActivity"></activity>
     </application>
 
 </manifest>

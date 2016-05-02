@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 
 public class ConsultingReceiver extends BroadcastReceiver {
-    public ConsultingReceiver() {
-    }
+//    public ConsultingReceiver() {
+//    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -17,7 +17,7 @@ public class ConsultingReceiver extends BroadcastReceiver {
             try{
                 String stateCode = intent.getStringExtra("stateCode");
                 //TODO: Do something with stateCode
-                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.HomeActivity.class);
+                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.MainActivity.class);
                 //TODO: set Extras and flag
                 context.startActivity(i);
             }catch (Exception e){

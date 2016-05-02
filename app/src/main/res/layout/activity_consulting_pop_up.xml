@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.ktpoc.tvcomm.consulting.consultingPopUpActivity"
+    tools:context="com.ktpoc.tvcomm.consulting.ConsultingPopUpActivity"
 
     android:theme="@style/Theme.Transparent"
     android:layout_width="fill_parent"

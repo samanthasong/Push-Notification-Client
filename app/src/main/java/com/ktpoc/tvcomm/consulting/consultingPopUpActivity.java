@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class consultingPopUpActivity extends Activity implements View.OnClickListener{
+public class ConsultingPopUpActivity extends Activity implements View.OnClickListener{
 
     private Button mConfirmBtn, mCancelBtn;
     private TextView mTextView;
@@ -46,7 +46,7 @@ public class consultingPopUpActivity extends Activity implements View.OnClickLis
     public void onClick(View v){
         switch (v.getId()){
             case R.id.confirm_button:
-                Intent i = new Intent(consultingPopUpActivity.this, com.ktpoc.tvcomm.consulting.MainActivity.class);
+                Intent i = new Intent(ConsultingPopUpActivity.this, com.ktpoc.tvcomm.consulting.MainActivity.class);
                 //i.putExtra("url", "https://amuzlab.iptime.org:3000/users/amuzlab");
                 i.putExtra("url", "http://www.google.co.kr");
                 i.setFlags(getIntent().FLAG_ACTIVITY_NEW_TASK);
