@@ -11,6 +11,8 @@ import com.ktpns.lib.service.PushClientService;
 import com.ktpns.lib.util.Constant;
 import com.ktpns.lib.util.Prefs;
 
+import java.util.Properties;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,21 +43,27 @@ public class MainActivity extends AppCompatActivity {
         Intent i;
         String server_url = getResources().getString(R.string.consulting_server_url);
         AndroidHttp httpClient = new AndroidHttp(server_url);
-        httpClient.requestCMS("deviceAuthSelect", "?regId=REGISTRATION_ID");
-        if(isRegistered){
+        Properties prop = new Properties();
+        prop.setProperty("registerid", "REGISTER_ID");
+        String res = httpClient.postCMS("deviceAuthSelect?", prop);
+
+        if(res == "true"){
             //USER REGISTER COMPLETE, GOTO HOME PAGE
             i = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(i);
-        }else{
+        }else if(res == "false"){
             //TODO: register
             if(registerToKPNS()!= true){
                 //TODO: go to User Register Activity
+                //TODO: get Token from Push BR
                 i = new Intent(MainActivity.this, UserRegisterActivity.class);
                 startActivity(i);
 
             }else{
-
+                Log.d(_TAG, "register fainled?");
             }
+        }else{
+            Log.d(_TAG, "HTTP POST ERROR");
         }
     }
 
