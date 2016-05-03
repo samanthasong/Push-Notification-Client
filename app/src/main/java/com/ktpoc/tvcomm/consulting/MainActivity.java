@@ -11,21 +11,16 @@ import com.ktpns.lib.service.PushClientService;
 import com.ktpns.lib.util.Constant;
 import com.ktpns.lib.util.Prefs;
 
-import java.util.Properties;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private final String _TAG = "[SONG-MAIN PAGE]";
-    private Boolean isRegistered;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //CMS api
-        isRegistered = false;
 
 //        mWebView.loadUrl(_url);
 //
@@ -41,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         Intent i;
+        /* server part incluede
         String server_url = getResources().getString(R.string.consulting_server_url);
         AndroidHttp httpClient = new AndroidHttp(server_url);
         Properties prop = new Properties();
@@ -65,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.d(_TAG, "HTTP POST ERROR");
         }
+
+        */
+
+        ///* TEST
+        i = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(i);
+        //*/
     }
 
     private Boolean registerToKPNS(){
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailInitialize() {
                 Log.d(_TAG, "KPNS API 초기화 실패");
-                 startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
+                startService(new Intent(MainActivity.this, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
             }
         });
         //*/

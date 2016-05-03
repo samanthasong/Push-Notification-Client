@@ -8,7 +8,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public WebView mWebView;
     private final String _TAG ="[HOME ACTIVITY]";
-    private final String _url = "https://amuzlab.iptime.org:3000/users/amuzlabtest";
+    private final String _url = "https://amuzlab.iptime.org:3000/users/asdf";
     //private final String _url = "https://172.30.1.58:3000/consulting/amuzlab";
     //private final String _url = "https://tvcomm.dlinkddns.com:3000/consulting/amuzlab";
 
@@ -17,6 +17,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //String server_url = getResources().getString(R.string.consulting_server_url);
         setContentView(R.layout.activity_webview);
         mWebView = (WebView)findViewById(R.id.web_view);
 
@@ -29,11 +30,50 @@ public class HomeActivity extends AppCompatActivity {
 //        if(extras!=null){
 //
 //        }
-        mWebView.loadUrl(_url);
-        client = new ConsultingClient(mWebView);
+
+        client = new ConsultingClient(_url);
+        client.setWebviewSettings(mWebView);
+        //setWebviewSettings(mWebView);
         String currentUserInput = null;
         //client.bridgeUserEventToJS(currentUserInput, mWebView);
     }
+//
+//    public void setWebviewSettings(WebView webview){
+//
+//        webview.loadUrl(_url);
+//        webview.setWebChromeClient(new WebChromeClient() {
+////            @Override
+////            public void onPermissionRequest(final PermissionRequest request){
+////                request.grant(request.getResources());
+////            }
+//
+//            @Override
+//            public void onPermissionRequest(final PermissionRequest request) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        request.grant(request.getResources());
+//                        Log.d(_TAG, "Permission request");
+//                    }
+//                });
+//            }
+//
+//        });
+//
+//        webview.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//                handler.proceed();
+//            }
+//        });
+//
+//        webview.getSettings().setJavaScriptEnabled(true);
+//        webview.getSettings().setMediaPlaybackRequiresUserGesture(false);
+//        webview.setWebContentsDebuggingEnabled(true);
+//        webview.addJavascriptInterface(new AndroidBridge(), "SSS");
+//        Log.d(_TAG, "CHROME VERSION : " + webview.getSettings().getUserAgentString());
+//
+//    }
 
 
     /*

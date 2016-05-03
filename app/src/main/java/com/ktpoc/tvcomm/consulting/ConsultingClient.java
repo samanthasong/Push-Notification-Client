@@ -15,12 +15,17 @@ public class ConsultingClient {
     private final String _TAG = "[WEBVIEW]";
     private final String THIS_ANDROID_APP = "[CONSULTING ANDROID]";
 
-    public ConsultingClient(WebView webview){
-        setWebviewSettings(webview);
+    public WebView mWV;
+    private String mUrl;
+
+    public ConsultingClient(String url){
+        mUrl = url;
 
     }
-    private void setWebviewSettings(WebView wv){
-        wv.setWebChromeClient(new WebChromeClient() {
+    public void setWebviewSettings(WebView webview){
+
+        webview.loadUrl(mUrl);
+        webview.setWebChromeClient(new WebChromeClient() {
             @Override
         public void onPermissionRequest(final PermissionRequest request){
                 request.grant(request.getResources());
@@ -39,18 +44,19 @@ public class ConsultingClient {
 
         });
 
-        wv.setWebViewClient(new WebViewClient() {
+        webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed();
             }
         });
 
-        wv.getSettings().setJavaScriptEnabled(true);
-        wv.getSettings().setMediaPlaybackRequiresUserGesture(false);
-        wv.setWebContentsDebuggingEnabled(true);
-        wv.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
-        Log.d(_TAG, "CHROME VERSION : " + wv.getSettings().getUserAgentString());
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        webview.setWebContentsDebuggingEnabled(true);
+        webview.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
+        Log.d(_TAG, "CHROME VERSION : " + webview.getSettings().getUserAgentString());
+
     }
 
     public void bridgeUserEventToJS(String userInput, WebView wv) {
