@@ -1,9 +1,10 @@
 package com.ktpoc.tvcomm.consulting;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ktpns.lib.KPNSApis;
 import com.ktpns.lib.OnKPNSInitializeEventListener;
@@ -12,19 +13,14 @@ import com.ktpns.lib.util.Constant;
 import com.ktpns.lib.util.Prefs;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
-    private final String _TAG = "[SONG-MAIN PAGE]";
+    private final String _TAG = "[MAIN PAGE]";
+    private String server_url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //CMS api
-
-//        mWebView.loadUrl(_url);
-//
-
     }
     @Override
     protected void onStart(){
@@ -32,41 +28,79 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected  void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+//        Toast t = Toast.makeText(this, "token passed to onNewIntent()", Toast.LENGTH_SHORT);
+//        t.show();
+//        if(intent != null){
+//            setIntent(intent);
+//        }
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
 
-        Intent i;
-        /* server part incluede
-        String server_url = getResources().getString(R.string.consulting_server_url);
-        AndroidHttp httpClient = new AndroidHttp(server_url);
-        Properties prop = new Properties();
-        prop.setProperty("registerid", "REGISTER_ID");
-        String res = httpClient.postCMS("deviceAuthSelect?", prop);
 
-        if(res == "true"){
-            //USER REGISTER COMPLETE, GOTO HOME PAGE
-            i = new Intent(MainActivity.this, HomeActivity.class);
-            startActivity(i);
-        }else if(res == "false"){
-            //TODO: register
-            if(registerToKPNS()!= true){
-                //TODO: go to User Register Activity
-                //TODO: get Token from Push BR
-                i = new Intent(MainActivity.this, UserRegisterActivity.class);
-                startActivity(i);
+      //  /* server part included
+//        server_url  = getResources().getString(R.string.consulting_server_url);
+//        AndroidHttp httpClient = new AndroidHttp(server_url);
+//        Properties prop = new Properties();
 
-            }else{
-                Log.d(_TAG, "register fainled?");
-            }
-        }else{
-            Log.d(_TAG, "HTTP POST ERROR");
-        }
+        //deviceAuthSelect API
 
-        */
+        Toast t2 = Toast.makeText(this, "MAIN RESUME", Toast.LENGTH_SHORT);
+        t2.show();
+
+        //2016.05.09 test
+        registerToKPNS();
+
+//
+//        prop.setProperty("registerid", "20160504");
+//        String res = httpClient.postCMS("deviceAuthSelect?", prop);
+//
+//        if(res == "true"){
+//            //USER REGISTER COMPLETE, GOTO HOME PAGE
+//            Toast t = Toast.makeText(this, "ALREADY REGISTERED BEFORE", Toast.LENGTH_SHORT);
+//            t.show();
+//            //5.4. https test blocking go to home activity
+//            Intent i = new Intent(MainActivity.this, HomeActivity.class);
+//            startActivity(i);
+//        }else if(res == "false"){
+//            //TODO: register
+//            registerToKPNS();
+//                //TODO: go to User Register Activity
+//            String tokenStr = "";
+//            Bundle extras = getIntent().getExtras();
+//            if(extras != null){
+//                tokenStr = extras.getString("token");
+//            }
+//
+//            //deviceInsert API
+//            Properties properties = new Properties();
+//            properties.setProperty("registerid", "20160504");
+//            properties.setProperty("tokenValue", tokenStr);
+//            properties.setProperty("devicetype", "2");
+//            properties.setProperty("nickname", "samsam");
+//            properties.setProperty("phone", "01044447777");
+//            String result = httpClient.postCMS("deviceInsert?", properties);
+//            if(result == "true"){
+//                Toast toast = Toast.makeText(this, "REGISTER TO CMS SUCCEED", Toast.LENGTH_SHORT);
+//                toast.show();
+//
+//            }
+//
+//            Intent i = new Intent(MainActivity.this, UserRegisterActivity.class);
+//            startActivity(i);
+//        }else{
+//            Log.d(_TAG, "HTTP POST ERROR");
+//        }
+
+        //*/
 
         ///* TEST
-        i = new Intent(MainActivity.this, HomeActivity.class);
-        startActivity(i);
+//        i = new Intent(MainActivity.this, HomeActivity.class);
+//        startActivity(i);
         //*/
     }
 

@@ -33,6 +33,13 @@ public class PushReceiver extends BroadcastReceiver{
 //
 //                Log.d(_TAG, "Push Message sent to Pop up Activity");
 //                context.startActivity(i);
+//                Intent i = new Intent(context, ConsultingService.class);
+//                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startService(i);
+
+//                Intent i = new Intent(context, MainActivity.class);
+//                i.putExtra("token", tokenStr);
+//                i.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
 
             }catch (Exception e){
                 e.printStackTrace();

@@ -1,10 +1,11 @@
 package com.ktpoc.tvcomm.consulting;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
+import android.widget.Toast;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends Activity {
 
     public WebView mWebView;
     private final String _TAG ="[HOME ACTIVITY]";
@@ -29,52 +30,16 @@ public class HomeActivity extends AppCompatActivity {
 //        Bundle extras = getIntent().getExtras();
 //        if(extras!=null){
 //
+//
 //        }
+        Toast toast = Toast.makeText(this, _TAG, Toast.LENGTH_SHORT);
+        toast.show();
 
         client = new ConsultingClient(_url);
         client.setWebviewSettings(mWebView);
-        //setWebviewSettings(mWebView);
         String currentUserInput = null;
         //client.bridgeUserEventToJS(currentUserInput, mWebView);
     }
-//
-//    public void setWebviewSettings(WebView webview){
-//
-//        webview.loadUrl(_url);
-//        webview.setWebChromeClient(new WebChromeClient() {
-////            @Override
-////            public void onPermissionRequest(final PermissionRequest request){
-////                request.grant(request.getResources());
-////            }
-//
-//            @Override
-//            public void onPermissionRequest(final PermissionRequest request) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        request.grant(request.getResources());
-//                        Log.d(_TAG, "Permission request");
-//                    }
-//                });
-//            }
-//
-//        });
-//
-//        webview.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-//                handler.proceed();
-//            }
-//        });
-//
-//        webview.getSettings().setJavaScriptEnabled(true);
-//        webview.getSettings().setMediaPlaybackRequiresUserGesture(false);
-//        webview.setWebContentsDebuggingEnabled(true);
-//        webview.addJavascriptInterface(new AndroidBridge(), "SSS");
-//        Log.d(_TAG, "CHROME VERSION : " + webview.getSettings().getUserAgentString());
-//
-//    }
-
 
     /*
    [USAGE -  Web Application에서의 Android's function call usage]

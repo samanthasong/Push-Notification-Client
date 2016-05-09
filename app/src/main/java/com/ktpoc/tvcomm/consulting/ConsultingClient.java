@@ -1,6 +1,7 @@
 package com.ktpoc.tvcomm.consulting;
 
 import android.net.http.SslError;
+import android.os.Bundle;
 import android.util.Log;
 import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
@@ -15,7 +16,6 @@ public class ConsultingClient {
     private final String _TAG = "[WEBVIEW]";
     private final String THIS_ANDROID_APP = "[CONSULTING ANDROID]";
 
-    public WebView mWV;
     private String mUrl;
 
     public ConsultingClient(String url){
@@ -56,6 +56,13 @@ public class ConsultingClient {
         webview.setWebContentsDebuggingEnabled(true);
         webview.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
         Log.d(_TAG, "CHROME VERSION : " + webview.getSettings().getUserAgentString());
+
+    }
+
+    public String refactorUrl(Bundle extra){
+
+
+        return mUrl;
 
     }
 
