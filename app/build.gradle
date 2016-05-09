@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.ktpoc.tvcomm.consulting"
-        minSdkVersion 15
-        targetSdkVersion 22
+        minSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -29,4 +29,8 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile files('libs/kt_kpns_lib_2.1.5_R2978P.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+}
+
+android{
+    useLibrary 'org.apache.http.legacy'
 }
