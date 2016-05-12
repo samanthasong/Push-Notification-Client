@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ktpns.lib.service.PushClientService;
+import com.ktpns.lib.util.Constant;
 
 import java.util.List;
 
@@ -93,8 +94,7 @@ public class ConsultingReceiver extends BroadcastReceiver {
         if ("com.ktpoc.tvcomm.service.check".equals(action)) {
             try {
                 if (isRunningService(context, PushClientService.class) == false) {
-                    Intent i = new Intent(context, PushClientService.class);
-                    context.startService(i);
+                    context.startService(new Intent(context, PushClientService.class).setAction(Constant.ACTION_START_SERVICE));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -125,13 +125,9 @@ public class ConsultingReceiver extends BroadcastReceiver {
         List<ActivityManager.RunningServiceInfo> info = activityManager.getRunningServices(Integer.MAX_VALUE);
 
         if (info != null) {
-            for(ActivityManager.RunningServiceInfo serviceInfo : info)
-            {
-
+            for(ActivityManager.RunningServiceInfo serviceInfo : info) {
                 ComponentName compName = serviceInfo.service;
                 String className = compName.getClassName();
-
-
 
                 if(className.equals(cls.getName())) {
                     isRunning = true;

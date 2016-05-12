@@ -27,7 +27,7 @@ public class ConsultingClient {
         webview.loadUrl(mUrl);
         webview.setWebChromeClient(new WebChromeClient() {
             @Override
-        public void onPermissionRequest(final PermissionRequest request){
+            public void onPermissionRequest(final PermissionRequest request) {
                 request.grant(request.getResources());
             }
 //
@@ -50,13 +50,13 @@ public class ConsultingClient {
                 handler.proceed();
             }
         });
+//        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setMediaPlaybackRequiresUserGesture(false);
         webview.setWebContentsDebuggingEnabled(true);
         webview.addJavascriptInterface(new AndroidBridge(), THIS_ANDROID_APP);
         Log.d(_TAG, "CHROME VERSION : " + webview.getSettings().getUserAgentString());
-
     }
 
     public String refactorUrl(Bundle extra){

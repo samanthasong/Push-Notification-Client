@@ -1,7 +1,6 @@
 package com.ktpoc.tvcomm.consulting;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -16,10 +15,10 @@ public class ConsultingService extends Service {
 
     private final String _TAG = "[Consulting SERVICE]";
 
+    public static ArrayList<Activity> arrayList = new ArrayList<Activity>();
+
     public ConsultingService() {
     }
-    private ActivityManager am = null;
-    private ArrayList<Activity> activityList = null;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -36,7 +35,12 @@ public class ConsultingService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-
+        //TODO: on destroy intent received, kill whole acitivity which was running
+        /*
+        for (int i = 0; i < arrayList.size(); i++) {
+            arrayList.get(i).finish();
+        }
+        */
         return START_NOT_STICKY;
     }
 

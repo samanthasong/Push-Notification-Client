@@ -57,10 +57,15 @@ package="com.ktpoc.tvcomm.consulting">
          android:exported="true"
          android:label="@string/user_service_name" />
         -->
-    <service android:name="com.ktpns.lib.service.KeepAliveService" android:enabled="true"
+    <service
+        android:name="com.ktpns.lib.service.KeepAliveService"
+        android:enabled="true"
         android:exported="true" />
 
-    <service android:name=".ConsultingService" android:enabled="false" android:exported="false">
+    <service
+        android:name=".ConsultingService"
+        android:enabled="false"
+        android:exported="false">
         <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
@@ -68,20 +73,28 @@ package="com.ktpoc.tvcomm.consulting">
 
     </service>
 
-    <activity android:name=".MainActivity" android:theme="@android:style/Theme.NoDisplay">
-
+    <activity
+        android:name=".MainActivity"
+        android:theme="@android:style/Theme.NoDisplay">
         <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-         <category android:name="android.intent.category.LAUNCHER" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-    <activity android:name=".ConsultingPopUpActivity" android:theme="@style/Theme.Transparent">
-        <category android:name="android.intent.category.DEFAULT" />
+    <activity
+        android:name=".ConsultingPopUpActivity"
+        android:theme="@style/Theme.Transparent">
         <category android:name="android.intent.category.DEFAULT" />
     </activity>
-    <activity android:name=".UserRegisterActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-    <activity android:name=".HomeActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-    <activity android:name=".ExpertsViewActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity
+        android:name=".UserRegisterActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity
+        android:name=".HomeActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity
+        android:name=".ExpertsViewActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     <activity android:name=".ScheduleViewActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     <activity android:name=".MyMenuActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     <!-- <activity -->

@@ -9,9 +9,10 @@ public class HomeActivity extends Activity {
 
     public WebView mWebView;
     private final String _TAG ="[HOME ACTIVITY]";
-    private final String _url = "https://amuzlab.iptime.org:3000/users/asdf";
+
+   // private final String _url = "https://amuzlab.iptime.org:3000/users/asdf";
     //private final String _url = "https://172.30.1.58:3000/consulting/amuzlab";
-    //private final String _url = "https://tvcomm.dlinkddns.com:3000/consulting/amuzlab";
+    private final String _url = "https://tvcomm.dlinkddns.com:3000/users/expert_category_22?roomId=a008guemwy";
 
     ConsultingClient client;
 

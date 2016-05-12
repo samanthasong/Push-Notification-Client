@@ -33,13 +33,14 @@ public class PushReceiver extends BroadcastReceiver{
 //
 //                Log.d(_TAG, "Push Message sent to Pop up Activity");
 //                context.startActivity(i);
-//                Intent i = new Intent(context, ConsultingService.class);
+//                Intent i = dnew Intent(context, ConsultingService.class);
 //                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
 //                context.startService(i);
 
-//                Intent i = new Intent(context, MainActivity.class);
-//                i.putExtra("token", tokenStr);
-//                i.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
+                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.MainActivity.class);
+                i.putExtra("token", tokenStr);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -85,7 +86,7 @@ public class PushReceiver extends BroadcastReceiver{
             byte[] message = intent.getByteArrayExtra("message");
             boolean needAck = intent.getBooleanExtra("needAck", false);
             short transactionId = intent.getShortExtra("transactionId", (short)0);
-            String strMsg = "";
+            String strMsg;
             try{
                 strMsg = new String(message, "UTF-8");
                 switch (type) {
@@ -95,7 +96,7 @@ public class PushReceiver extends BroadcastReceiver{
                     case 1:
                         Log.d(_TAG, "receive.MESSAGE type --> General Push Message");
                         //TODO: pass it to pop up activity
-//
+//                      
                         break;
                     default:
                         Log.d(_TAG, "receive.MESSAGE type --> UNKNOWN");
