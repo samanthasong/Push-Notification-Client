@@ -64,7 +64,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:text="or Else..."
+            android:text="Else Device"
             android:id="@+id/phone_radio_btn"
             android:inputType="text"
             android:layout_below="@+id/phone_edit_text"

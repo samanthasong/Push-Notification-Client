@@ -49,7 +49,9 @@ public class AndroidHttp{
         isJSONResponse = true;
     }
 
+
     private void setHTTPSSettings(){
+
         /* Logic for ignoring SSL Cert */
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {

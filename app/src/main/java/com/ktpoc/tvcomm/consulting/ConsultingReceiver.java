@@ -104,6 +104,13 @@ public class ConsultingReceiver extends BroadcastReceiver {
                 e.printStackTrace();
             }
         }
+//        if(intent.getAction().equals("com.insun.send.msg.songsong")){
+//            //푸쉬 메세지 테스트용
+//            Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ConsultingPopUpActivity.class);
+//            i.putExtra("message", "https://www.naver.com");
+//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(i);
+//        }
     }
 
     public static boolean isRunningService(Context context, Class<?> cls) {

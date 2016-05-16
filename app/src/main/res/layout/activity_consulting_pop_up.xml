@@ -8,32 +8,31 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:baselineAligned="false">
+
     <RelativeLayout
         android:layout_width="320dp"
         android:layout_height="420dp"
-        android:background="#AAAAAA"
         android:layout_gravity="center"
-        android:outlineProvider="bounds">
+        android:background="#aaaa">
 
         <TextView
             android:id="@+id/text_view"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/push_title"
             android:textSize="18sp" />
         <Button
             android:id="@+id/confirm_button"
-            android:layout_width="120dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:text="@string/confirm_string" />
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="120dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/confirm_button"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/confirm_button"
             android:text="@string/cancel_string" />

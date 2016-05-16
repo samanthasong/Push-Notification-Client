@@ -53,6 +53,7 @@ public class ViewManager extends Application{
     }
 
     public int getNumberOfActivities(){
+
         return mIdx;
     }
 

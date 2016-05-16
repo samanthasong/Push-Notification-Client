@@ -30,18 +30,8 @@ public class PushReceiver extends BroadcastReceiver{
                 //Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ConsultingPopUpActivity.class);
                 //i.putExtra("receivedMsg", "hello this is push message");
 //                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//                Bundle extra = new Bundle();
-//                extra.putString("token", tokenStr);
-//      //          ViewManager.getInstance().launchActivity(context, UserRegisterActivity.class, extra);
-//
 
-                /*
-                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.UserRegisterActivity.class);
-                i.putExtra("token", tokenStr);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
-                */
+
                 Intent i = new Intent("com.ktpoc.tvcomm.consulting.send.token");
                 i.addCategory(Intent.CATEGORY_DEFAULT);
                 i.putExtra("token", tokenStr);
@@ -101,7 +91,11 @@ public class PushReceiver extends BroadcastReceiver{
                     case 1:
                         Log.d(_TAG, "receive.MESSAGE type --> General Push Message");
                         //TODO: pass it to pop up activity
-//                      
+//                        Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ConsultingPopUpActivity.class);
+//                        i.putExtra("message", strMsg); //it would be URL
+//                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        context.startActivity(i);
+
                         break;
                     default:
                         Log.d(_TAG, "receive.MESSAGE type --> UNKNOWN");

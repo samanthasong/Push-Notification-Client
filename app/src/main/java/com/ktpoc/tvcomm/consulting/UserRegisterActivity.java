@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,9 @@ public class UserRegisterActivity extends Activity {
     private RadioButton mGenieRadioBtn, mPhoneRadioBtn;
     private String m_server_url;
     private String result;
-    private AndroidHttp httpsClient;
+    private AndroidHttp mHttpsClient;
+    private Properties mProperties;
+    private String mRegistrationId;
 
     private String tokenStr;
 
@@ -52,44 +55,19 @@ public class UserRegisterActivity extends Activity {
         mPhoneRadioBtn = (RadioButton)findViewById(R.id.phone_radio_btn);
 
         m_server_url = getResources().getString(R.string.consulting_server_url);
+        mHttpsClient = new AndroidHttp(m_server_url);
+        mProperties = new Properties();
+        //mRegistrationId = getResources().getString(R.string.imei);
+        mRegistrationId = ((TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.ktpoc.tvcomm.consulting.send.token");
+        //for push msg test
+        intentFilter.addAction("com.insun.send.msg.songsong");
         intentFilter.addCategory("android.intent.category.DEFAULT");
         registerReceiver(receiver, intentFilter);
+
         tokenStr = "";
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent){
-        super.onNewIntent(intent);
-        Log.d(_TAG, "onNewIntent");
-        if(intent != null){
-            setIntent(intent);
-        }
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        mPhoneEditTxt.setText("01032490813");
-        mNameEditTxt.setText("samsami");
-    }
-    @Override
-    protected void onResume(){
-
-        super.onResume();
-        Log.d(_TAG, "onResume called~~~~");
-        if(tokenStr == null)
-            registerToKPNS();
-
-
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null) {
-//            tokenStr = extras.getString("token");
-//        }else{
-//            Log.d(_TAG, "TOKEN STRING NOT YET RECEIVED");
-//        }
 
     }
 
@@ -104,8 +82,33 @@ public class UserRegisterActivity extends Activity {
                 }
             }
 
+
         }
     };
+    @Override
+    protected void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        Log.d(_TAG, "onNewIntent");
+        if(intent != null){
+            setIntent(intent);
+        }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        mPhoneEditTxt.setText("0103330132");
+        mNameEditTxt.setText("insami");
+    }
+    @Override
+    protected void onResume(){
+
+        super.onResume();
+        Log.d(_TAG, "onResume called");
+        if(tokenStr == "")
+            registerToKPNS();
+    }
+
     public void onClickRegister(View v) {
 
         ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_bar);
@@ -113,24 +116,24 @@ public class UserRegisterActivity extends Activity {
 
         synchronized (tokenStr) {
 
-            String phoneNum, nickName, deviceType, regId;
-            regId = getResources().getString(R.string.imei);
-            deviceType = "2";
+            String phoneNum, nickName, deviceType;
 
             phoneNum = mPhoneEditTxt.getText().toString();
             nickName = mNameEditTxt.getText().toString();
-            AndroidHttp httpsClient = new AndroidHttp(m_server_url);
-            Properties properties = new Properties();
-            properties.setProperty("registerid", regId);
-            properties.setProperty("tokenvalue", tokenStr);
+            deviceType = "2";
+
+            mProperties.setProperty("registerid", mRegistrationId);
+            mProperties.setProperty("tokenvalue", tokenStr);
             if (mDeviceradioGroup.getCheckedRadioButtonId() == R.id.phone_radio_btn) {
                 deviceType = "1"; //default is 2 (Genie box)
+            }else if(mDeviceradioGroup.getCheckedRadioButtonId() == R.id.genie_radio_btn) {
+                deviceType = "2";
             }
-            properties.setProperty("devicetype", deviceType);
-            properties.setProperty("nickname", nickName);
-            properties.setProperty("phone", phoneNum);
+            mProperties.setProperty("devicetype", deviceType);
+            mProperties.setProperty("nickname", nickName);
+            mProperties.setProperty("phone", phoneNum);
 
-            result = httpsClient.postCMS("deviceInsert?", properties, false);
+            result = mHttpsClient.postCMS("deviceInsert?", mProperties, false);
             Log.d(_TAG, "deviceInsert result is --> " + result);
             switch (result) {
                 case "true":
@@ -156,13 +159,15 @@ public class UserRegisterActivity extends Activity {
             public void onSuccessInitialize(KPNSApis kpnsApis) {
                 kpnsApis.register("0WW4I105s0", "TVConsulting01");
                 Log.d(_TAG, "KPNS API 초기화 성공");
-//                kpnsApis.getConnectionState();
-//                //TODO: when Token received from push server, this value needs to be saved to Consulting Server or Local Storage
-//                if (Prefs.isMainLibApp(MainActivity.this) == true) {
-//                    Log.d(_TAG, "THIS IS CONNECTED TO KPNS SERVER");
-//                } else {
-//                    Log.d(_TAG, "ANOTHER APP CONNECTED TO KPNS SERVER");
-//                }
+                /*
+                kpnsApis.getConnectionState();
+
+                if (Prefs.isMainLibApp(UserRegisterActivity.this) == true) {
+                    Log.d(_TAG, "THIS IS CONNECTED TO KPNS SERVER");
+                } else {
+                    Log.d(_TAG, "ANOTHER APP CONNECTED TO KPNS SERVER");
+                }
+                */
             }
 
             @Override
@@ -195,7 +200,14 @@ public class UserRegisterActivity extends Activity {
     }
 
     @Override
+    protected void onPause(){
+        super.onPause();
+
+    }
+
+    @Override
     protected void onDestroy(){
+
         unregisterReceiver(receiver);
         super.onDestroy();
     }
