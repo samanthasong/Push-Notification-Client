@@ -17,6 +17,7 @@ public class ConsultingReceiver extends BroadcastReceiver {
 //    public ConsultingReceiver() {
 //    }
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -31,6 +32,7 @@ public class ConsultingReceiver extends BroadcastReceiver {
                 //TODO: set Extras and flag
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -40,15 +42,14 @@ public class ConsultingReceiver extends BroadcastReceiver {
         //전문가 리스트 요청
         if ("com.ktpoc.tvcomm.consulting.information".equals(action)) {
             try {
-//                String category = intent.getStringExtra("categoryName");
-//                String expert = intent.getStringExtra("expertName");
+                String category = intent.getStringExtra("category");
 
                 //TODO: Do something with category and expert
                 Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ExpertsViewActivity.class);
                 //TODO: set Extras and flag
 //                i.putExtra("category", category);
 //                i.putExtra("expert", expert);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 context.startActivity(i);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,7 +59,7 @@ public class ConsultingReceiver extends BroadcastReceiver {
         //전문가 스케줄 요청
         if ("com.ktpoc.tvcomm.consulting.schedule".equals(action)) {
             try {
-                String expert = intent.getStringExtra("expertName");
+                String expert = intent.getStringExtra("name");
 
                 //TODO: Do something with expert
                 Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.ScheduleViewActivity.class);
@@ -74,7 +75,9 @@ public class ConsultingReceiver extends BroadcastReceiver {
         //menu 이동 명령
         if ("com.ktpoc.tvcomm.consulting.menu".equals(action)) {
             try {
-                String actId = intent.getStringExtra("actId");
+                String actId = intent.getStringExtra("actId"); //(이전메뉴 502, 마이 메뉴 504 협의중
+
+                //service로 가든 main activity 로 가든..
 
                 //TODO: process activity index with actId
             } catch (Exception e) {
@@ -84,8 +87,9 @@ public class ConsultingReceiver extends BroadcastReceiver {
 
         if ("com.ktpoc.tvcomm.finish.consult".equals(action)) {
             try {
-
+                //service로 가든 main activity 로 가든..
                 //TODO: destroy consulting app
+                ViewManager.getInstance().removeAllActivity();
             } catch (Exception e) {
                 e.printStackTrace();
             }

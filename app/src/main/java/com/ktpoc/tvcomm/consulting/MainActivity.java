@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ktpns.lib.KPNSApis;
 import com.ktpns.lib.OnKPNSInitializeEventListener;
@@ -17,16 +16,25 @@ import java.util.Properties;
 public class MainActivity extends Activity{
 
     private final String _TAG = "[MAIN PAGE]";
+
     private String server_url;
     private String deviceAuthResult = "";
-    private String deviceInsertResult = "";
+    private AndroidHttp httpsClient;
+    private Properties prop;
+    private String registrationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-       // ConsultingService.arrayList.add(this);
+        ViewManager.getInstance().addActivity(this);
+        ViewManager.getInstance().printActivityListSofar();
+
         super.onCreate(savedInstanceState);
 
+        httpsClient = new AndroidHttp(server_url);
+        prop = new Properties();
+        server_url  = getResources().getString(R.string.consulting_server_url);
+        registrationId = getResources().getString(R.string.imei);
     }
     @Override
     protected void onStart(){
@@ -36,7 +44,7 @@ public class MainActivity extends Activity{
     @Override
     protected  void onNewIntent(Intent intent){
         super.onNewIntent(intent);
-        Log.d(_TAG, "onNewIntent 입성");
+        Log.d(_TAG, "onNewIntent");
         if(intent != null){
             setIntent(intent);
         }
@@ -46,65 +54,28 @@ public class MainActivity extends Activity{
     protected void onResume(){
         super.onResume();
 
+        //TODO: check
 
-      //  /* server part included
-        server_url  = getResources().getString(R.string.consulting_server_url);
+        checkRegistration();
 
-//
-//        //deviceAuthSelect API
-//
-//        Toast t2 = Toast.makeText(this, "MAIN RESUME", Toast.LENGTH_SHORT);
-//        t2.show();
-//
-//        //2016.05.09 test
-//        //registerToKPNS();
-//
-//
-        ///*
-        AndroidHttp httpClient = new AndroidHttp(server_url);
-        Properties prop = new Properties();
-        prop.setProperty("registerid", "20160512");
-        deviceAuthResult = httpClient.postCMS("deviceAuthSelect?", prop);
-        switch (deviceAuthResult){
+    }
+
+    private void checkRegistration(){
+        prop.setProperty("registerid", registrationId);
+        deviceAuthResult = httpsClient.postCMS("deviceAuthSelect?", prop, true);
+
+        switch (deviceAuthResult) {
             case "true": // Customer already registered once before
                 Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
-                Toast t = Toast.makeText(this, "ALREADY REGISTERED BEFORE", Toast.LENGTH_SHORT);
-                t.show();
                 //5.4. https test blocking go to home activity
                 Intent i = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(i);
                 break;
             case "false": // Customer never registered
                 Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
-                registerToKPNS();
-                String tokenStr;
-                Bundle extras = getIntent().getExtras();
-                if(extras != null){
-                    tokenStr = extras.getString("token");
-                    Log.d(_TAG, "token is --> " +tokenStr);
-                    Properties properties = new Properties();
-                    properties.setProperty("registerid", "20160512");
-                    properties.setProperty("tokenvalue", tokenStr);
-                    properties.setProperty("devicetype", "2");
-                    properties.setProperty("nickname", "samsam2");
-                    properties.setProperty("phone", "01032490813");
-                    deviceInsertResult = httpClient.postCMS("deviceInsert?", properties);
-                    switch (deviceInsertResult){
-                        case "ok":
-                            Log.d(_TAG, "deviceInsert result is -->" + deviceInsertResult);
-                            Toast toast = Toast.makeText(this, "REGISTER TO CMS SUCCEED", Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
-                        case "error":
-                            Log.d(_TAG, "deviceInsert result is -->" + deviceInsertResult);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-//
-//                Intent intent = new Intent(MainActivity.this, UserRegisterActivity.class);
-//                startActivity(intent);
+                //registerToKPNS();
+                Intent intent = new Intent(MainActivity.this, UserRegisterActivity.class);
+                startActivity(intent);
                 break;
             case "error":
                 Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
@@ -112,12 +83,6 @@ public class MainActivity extends Activity{
             default:
                 break;
         }
-       // */
-
-//        ///* TEST
-//        Intent i = new Intent(MainActivity.this, HomeActivity.class);
-//        startActivity(i);
-        //*/
     }
 
     private Boolean registerToKPNS(){
@@ -167,6 +132,10 @@ public class MainActivity extends Activity{
         }
 
     @Override
+    protected void onPause(){
+        super.onPause();
+    }
+    @Override
     protected void onStop(){
         super.onStop();
     }
@@ -175,6 +144,5 @@ public class MainActivity extends Activity{
     protected void onDestroy(){
 
         super.onDestroy();
-       // ConsultingService.arrayList.remove(this);
     }
 }

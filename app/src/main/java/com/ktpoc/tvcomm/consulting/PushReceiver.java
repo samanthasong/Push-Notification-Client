@@ -31,16 +31,21 @@ public class PushReceiver extends BroadcastReceiver{
                 //i.putExtra("receivedMsg", "hello this is push message");
 //                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
 //
-//                Log.d(_TAG, "Push Message sent to Pop up Activity");
-//                context.startActivity(i);
-//                Intent i = dnew Intent(context, ConsultingService.class);
-//                i.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startService(i);
+//                Bundle extra = new Bundle();
+//                extra.putString("token", tokenStr);
+//      //          ViewManager.getInstance().launchActivity(context, UserRegisterActivity.class, extra);
+//
 
-                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.MainActivity.class);
+                /*
+                Intent i = new Intent(context, com.ktpoc.tvcomm.consulting.UserRegisterActivity.class);
                 i.putExtra("token", tokenStr);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
+                */
+                Intent i = new Intent("com.ktpoc.tvcomm.consulting.send.token");
+                i.addCategory(Intent.CATEGORY_DEFAULT);
+                i.putExtra("token", tokenStr);
+                context.sendBroadcast(i);
 
             }catch (Exception e){
                 e.printStackTrace();

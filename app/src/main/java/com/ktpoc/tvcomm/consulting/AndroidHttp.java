@@ -1,6 +1,5 @@
 package com.ktpoc.tvcomm.consulting;
 
-import android.os.StrictMode;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -39,13 +38,15 @@ public class AndroidHttp{
     private HttpsURLConnection mHttpsURLConnection;
     private InputStream mInputStream;
     private DataOutputStream mOutputStream;
+    private Boolean isJSONResponse;
+    private String encodedMsg;
 
     public AndroidHttp(String _url){
         mUrlStr = _url;
         mUrl = null;
         mHttpsURLConnection = null;
         mInputStream = null;
-
+        isJSONResponse = true;
     }
 
     private void setHTTPSSettings(){
@@ -91,41 +92,65 @@ public class AndroidHttp{
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 
+    private class httpThread extends Thread{
+        String mThreadOutput;
+        public httpThread(){
+            mThreadOutput = "";
+        }
 
-    public String postCMS (String api, Properties prop){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        String encodedMsg;
-        String tmpUrlStr;
-        tmpUrlStr = mUrlStr;
-        setHTTPSSettings();
-        encodedMsg= encodeString(prop);
-        tmpUrlStr += api;
-        Log.d("CMS", "URL is --> " + tmpUrlStr);
-        Log.d("CMS", "property is --> " + encodedMsg);
-
-            try{
-                mUrl = new URL(tmpUrlStr);
-            }catch (MalformedURLException e){
-                e.printStackTrace();
-            }
-            try{
-                mHttpsURLConnection = (HttpsURLConnection)mUrl.openConnection();
+        @Override
+        public void run(){
+            try {
+                mHttpsURLConnection = (HttpsURLConnection) mUrl.openConnection();
                 mHttpsURLConnection.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
                 mHttpsURLConnection.setRequestMethod("POST");
                 mHttpsURLConnection.setDoInput(true);
                 mHttpsURLConnection.setDoOutput(true);
                 mOutputStream = new DataOutputStream(mHttpsURLConnection.getOutputStream());
                 mOutputStream.writeBytes(encodedMsg);
-
                 mOutputStream.flush();
                 mInputStream = mHttpsURLConnection.getInputStream();
-
-            }catch (IOException e){
+                mThreadOutput = doParsingResponse(mInputStream, isJSONResponse);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        public String getmThreadOutput(){
 
-        return doJSONParser(mInputStream);
+            return mThreadOutput;
+        }
+    }
+
+    public String postCMS (String api, Properties prop, Boolean bool){
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+
+
+        String tmpUrlStr;
+
+        tmpUrlStr = mUrlStr;
+        setHTTPSSettings();
+
+        tmpUrlStr += api;
+        isJSONResponse = bool;
+
+        encodedMsg= encodeString(prop);
+        Log.d("CMS", "property is --> " + encodedMsg);
+        Log.d("CMS", "URL is --> " + tmpUrlStr);
+
+        try{
+            mUrl = new URL(tmpUrlStr);
+        }catch (MalformedURLException e){
+            e.printStackTrace();
+        }
+        httpThread thread = new httpThread();
+        thread.start();
+        try {
+            thread.join();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return thread.getmThreadOutput();
     }
 
     private String encodeString(Properties params) {
@@ -142,13 +167,13 @@ public class AndroidHttp{
         return sb.toString();
     }
 
-    private String doJSONParser(InputStream is){
+    private String doParsingResponse(InputStream is, Boolean bool){
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] byteBuffer = new byte[1024];
         byte[] byteData;
         int length;
-        String resultVal = "";
+        String result = "";
 
         try {
             while((length = is.read(byteBuffer, 0, byteBuffer.length)) != -1){
@@ -159,20 +184,20 @@ public class AndroidHttp{
         }
         byteData = byteArrayOutputStream.toByteArray();
         String response = new String(byteData);
+        if(bool == true){
+            try {
+                JSONArray jsonArray = new JSONArray(response); // JSONArray 생성
+                for(int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jObject = jsonArray.getJSONObject(i);  // JSONObject 추출
+                    result = jObject.getString("result");
 
-        try {
-            JSONArray jsonArray = new JSONArray(response); // JSONArray 생성
-            for(int i = 0; i < jsonArray.length(); i++){
-                JSONObject jObject = jsonArray.getJSONObject(i);  // JSONObject 추출
-                resultVal = jObject.getString("result");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }else{
+            result =  response;
         }
-
-        Log.d("CMS", "result str is --> " +response);
-        Log.d("CMS", "result val is --> " +resultVal);
-
-        return resultVal;
+        return result;
     }
 }

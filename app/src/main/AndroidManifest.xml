@@ -48,8 +48,10 @@ package="com.ktpoc.tvcomm.consulting">
 
 <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name"
     android:supportsRtl="true" android:theme="@style/AppTheme">
-    <service android:name="com.ktpns.lib.service.PushClientService" android:enabled="true"
-        android:exported="true" android:label="@string/service_name" />
+    <service android:name="com.ktpns.lib.service.PushClientService"
+        android:enabled="true"
+        android:exported="true"
+        android:label="@string/service_name" />
     <!--
          <service
          android:name="com.ktpns.lib.service.UserChangeService"
@@ -62,17 +64,6 @@ package="com.ktpoc.tvcomm.consulting">
         android:enabled="true"
         android:exported="true" />
 
-    <service
-        android:name=".ConsultingService"
-        android:enabled="false"
-        android:exported="false">
-        <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-
-    </service>
-
     <activity
         android:name=".MainActivity"
         android:theme="@android:style/Theme.NoDisplay">
@@ -84,7 +75,6 @@ package="com.ktpoc.tvcomm.consulting">
     <activity
         android:name=".ConsultingPopUpActivity"
         android:theme="@style/Theme.Transparent">
-        <category android:name="android.intent.category.DEFAULT" />
     </activity>
     <activity
         android:name=".UserRegisterActivity"
@@ -95,8 +85,12 @@ package="com.ktpoc.tvcomm.consulting">
     <activity
         android:name=".ExpertsViewActivity"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-    <activity android:name=".ScheduleViewActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-    <activity android:name=".MyMenuActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity
+        android:name=".ScheduleViewActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+    <activity
+        android:name=".MyMenuActivity"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     <!-- <activity -->
     <!-- android:name="com.ktpns.lib.popup.PopupActivity" -->
     <!-- android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" /> -->
@@ -169,7 +163,7 @@ package="com.ktpoc.tvcomm.consulting">
             <action android:name="com.ktpoc.tvcomm.consulting.information" />
             <action android:name="com.ktpoc.tvcomm.consulting.menu" />
             <action android:name="com.ktpoc.tvcomm.consulting.schedule" />
-            <action android:name="com.ktpoc.tvcomm.finish.consult" />
+            <action android:name="com.ktpoc.tvcomm.consulting.stop" />
             <action android:name="com.ktpoc.tvcomm.service.check" />
 
             <!--<category android:name="com.ktpoc.tvcomm.consulting" />-->

@@ -47,13 +47,11 @@ public class ConsultingPopUpActivity extends Activity implements View.OnClickLis
         switch (v.getId()){
             case R.id.confirm_button:
                 Intent i = new Intent(ConsultingPopUpActivity.this, com.ktpoc.tvcomm.consulting.MainActivity.class);
-                //i.putExtra("url", "https://amuzlab.iptime.org:3000/users/amuzlab");
                 i.putExtra("url", "http://www.google.co.kr");
-                i.setFlags(getIntent().FLAG_ACTIVITY_NEW_TASK);
+                i.setFlags(getIntent().FLAG_ACTIVITY_NO_HISTORY);
                 Log.d(_TAG, "URL sent to Main Activity");
-                this.finish();
                 startActivity(i);
-               // this.finish();
+                this.finish();
                 break;
             case R.id.cancel_button:
                 Log.d(_TAG, "cancel button pressed");
