@@ -43,8 +43,6 @@ public class MainActivity extends Activity{
         Intent i = new Intent(this, com.ktpoc.tvcomm.consulting.HomeActivity.class);
         startActivity(i);
 
-
-
     }
 
     @Override

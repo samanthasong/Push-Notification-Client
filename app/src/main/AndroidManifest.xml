@@ -90,6 +90,10 @@
             android:name=".ConsultingPopUpActivity"
             android:theme="@style/Theme.Transparent" >
         </activity>
+        <!--<activity-->
+            <!--android:name=".ConsultingPopUpActivity"-->
+            <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >-->
+        <!--</activity>-->
         <activity
             android:name=".UserRegisterActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
