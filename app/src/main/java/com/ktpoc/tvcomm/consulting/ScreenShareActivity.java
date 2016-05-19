@@ -9,7 +9,7 @@ public class ScreenShareActivity extends Activity {
     public WebView mWebView;
     private final String _TAG = "[SCREEN SHARE";
 
-    private final String _url = "http://google.co.kr";
+    private final String _url = "https://amuzlab.iptime.org:3000/users/expert_category22?roodId=gaolf7rhe8";
     private ConsultingClient mClient;
 
     @Override
@@ -18,10 +18,16 @@ public class ScreenShareActivity extends Activity {
         ViewManager.getInstance().addActivity(this);
         ViewManager.getInstance().printActivityListSofar();
 
+        ///*
         setContentView(R.layout.activity_webview);
         mWebView = (WebView)findViewById(R.id.web_view);
         mClient = new ConsultingClient(_url);
         mClient.setWebviewSettings(mWebView);
+
+        //*/
+
+        //TEST chrome
+
     }
 
     @Override

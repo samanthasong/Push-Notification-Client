@@ -1,6 +1,7 @@
 package com.ktpoc.tvcomm.consulting;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,7 +16,6 @@ public class ConsultingPopUpActivity extends Activity {
         ViewManager.getInstance().addActivity(this);
         ViewManager.getInstance().printActivityListSofar();
 
-
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
             mMessage = extra.getString("message");
@@ -26,15 +26,17 @@ public class ConsultingPopUpActivity extends Activity {
                     rightClickListener);
             mPopupDlg.show();
         }
-
     }
-
-
 
     View.OnClickListener leftClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            //message pass through
+            Intent  i  = new Intent(ConsultingPopUpActivity.this, MainActivity.class);
+            i.putExtra("message", mMessage);
+            startActivity(i);
+            ViewManager.getInstance().removeActivity(ConsultingPopUpActivity.this);
+            ConsultingPopUpActivity.this.finish();
         }
     };
 
@@ -42,12 +44,18 @@ public class ConsultingPopUpActivity extends Activity {
         @Override
         public void onClick(View v) {
             mPopupDlg.dismiss();
-            ConsultingPopUpActivity.this.finish();
             ViewManager.getInstance().removeActivity(ConsultingPopUpActivity.this);
+
+            //broadcast to M.C.
+            Intent i = new Intent("com.ktpoc.tvcomm.consulting.noti");
+            i.putExtra("consultingState", "exit");
+            sendBroadcast(i);
+
+            ConsultingPopUpActivity.this.finish();
         }
     };
 
-
+}
 
 //    private Button mConfirmBtn, mCancelBtn;
 //    private TextView mTextView;
@@ -124,5 +132,3 @@ public class ConsultingPopUpActivity extends Activity {
 //        super.onStop();
 //
 //    }
-
-}

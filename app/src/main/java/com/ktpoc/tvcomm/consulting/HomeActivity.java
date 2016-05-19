@@ -2,9 +2,11 @@ package com.ktpoc.tvcomm.consulting;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebView;
@@ -16,11 +18,12 @@ public class HomeActivity extends Activity {
 
     public WebView mWebView;
     private final String _TAG ="[HOME ACTIVITY]";
+    private boolean isDlgShownBefore = false;
 
     //private final String _url = "https://amuzlab.iptime.org:3000/users/asdf";
     //private final String _url = "https://172.30.1.58:3000/consulting/amuzlab";
     //private final String _url = "https://tvcomm.dlinkddns.com:3000/users/expert_category_22?roomId=rjw0asgrrg";
-    private final String _url = "http://www.google.co.kr";
+    private final String _url = "https://amuzlab.iptime.org:3000/users/expert_category22?roomId=gaolf7rhe8";
 
     private String server_url;
     private ConsultingClient client;
@@ -45,37 +48,35 @@ public class HomeActivity extends Activity {
     protected void onResume(){
         super.onResume();
 
-//        Bundle extras = getIntent().getExtras();
-//        if(extras!=null){
-//
-//
-//        }
+        //다이얼로그 종료되면 다시 온리쥼오나ㅎㅎㅎ
         Toast toast = Toast.makeText(this, _TAG, Toast.LENGTH_SHORT);
         toast.show();
 
         String currentUserInput = null;
 
+        if(isDlgShownBefore == false){
+            deviceAuthResult = checkRegistration();
+            switch (deviceAuthResult) {
+                case "true": // Customer already registered once before
+                    Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
+                    break;
 
-        deviceAuthResult = checkRegistration();
-        switch (deviceAuthResult) {
-            case "true": // Customer already registered once before
-                Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
-                break;
+                case "false": // Customer never registered
+                    Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
+                    registerDialog();
+                    isDlgShownBefore = true;
+                    break;
 
-            case "false": // Customer never registered
-                Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
-                registerDialog();
-                break;
+                case "error":
+                    Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
+                    break;
 
-            case "error":
-                Log.d(_TAG, "deviceAuthSelect result is -->" + deviceAuthResult);
-                break;
+                default:
+                    break;
+            }
+        }else { //stay
 
-            default:
-                break;
         }
-
-
         //client.bridgeUserEventToJS(currentUserInput, mWebView);
     }
 
@@ -86,9 +87,7 @@ public class HomeActivity extends Activity {
         AndroidHttp httpsClient = new AndroidHttp(server_url);
 
         Properties prop = new Properties();
-       // final String registrationId = ((TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-
-        String registrationId = "testestest";
+        final String registrationId = ((TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
         prop.setProperty("registerid", registrationId);
 
         result = httpsClient.postCMS("deviceAuthSelect?", prop, true);
@@ -115,8 +114,6 @@ public class HomeActivity extends Activity {
         alertDialog.setTitle("GiGA Genie 컨설팅 서비스");
         alertDialog.show();
     }
-
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){

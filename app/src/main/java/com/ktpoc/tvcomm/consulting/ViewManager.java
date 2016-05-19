@@ -17,6 +17,11 @@ public class ViewManager extends Application{
     private static ViewManager actListInstance = null;
     private ArrayList<Activity> mArrayList;
     private int mIdx;
+    private String mUser;
+    private String mCategory;
+    private String mExpert;
+    private String mUrl;
+    private String mRoomId;
 
     public static synchronized ViewManager getInstance() {
         if(actListInstance == null)
@@ -27,6 +32,11 @@ public class ViewManager extends Application{
     private ViewManager() {
         this.mArrayList = new ArrayList<>();
         mIdx = 0;
+        mUser = "";
+        mCategory = "";
+        mExpert = "";
+        mUrl = "";
+        mRoomId = "";
     }
 
     public void addActivity(Activity activity){
@@ -53,7 +63,6 @@ public class ViewManager extends Application{
     }
 
     public int getNumberOfActivities(){
-
         return mIdx;
     }
 
@@ -70,5 +79,48 @@ public class ViewManager extends Application{
     public Activity getActivity(int i){
 
         return mArrayList.get(i);
+    }
+
+    public String getParameter(String parameter){
+        switch (parameter){
+            case "EXPERT":
+                return mExpert;
+            case "CATEGORY":
+                return mCategory;
+            case "USER":
+                return mUser;
+            case "URL":
+                return mUrl;
+            case "ROOM_ID":
+                return mRoomId;
+            default:
+                return "";
+        }
+    }
+
+    public void setParameter(String parameter, String value){
+        switch (parameter){
+            case "EXPERT":
+                mExpert = value;
+                break;
+
+            case "CATEGORY":
+                mCategory = value;
+                break;
+
+            case "USER":
+                mUser = value;
+                break;
+
+            case "URL":
+                mUrl = value;
+                break;
+
+            case "ROOM_ID":
+                mRoomId = value;
+                break;
+
+            default:
+        }
     }
 }

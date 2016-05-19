@@ -81,8 +81,6 @@ public class UserRegisterActivity extends Activity {
                     Log.d(_TAG, "token string is --> " + tokenStr);
                 }
             }
-
-
         }
     };
     @Override

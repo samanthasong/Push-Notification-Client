@@ -76,10 +76,11 @@ public class ConsultingReceiver extends BroadcastReceiver {
         if ("com.ktpoc.tvcomm.consulting.menu".equals(action)) {
             try {
                 String actId = intent.getStringExtra("actId"); //(이전메뉴 502, 마이 메뉴 504 협의중
-
-                //service로 가든 main activity 로 가든..
-
+                Intent i = new Intent("com.ktpoc.tvcomm.consulting.user.action");
+                i.putExtra("actId", actId);
+                context.sendBroadcast(i);
                 //TODO: process activity index with actId
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -87,9 +88,15 @@ public class ConsultingReceiver extends BroadcastReceiver {
 
         if ("com.ktpoc.tvcomm.finish.consult".equals(action)) {
             try {
-                //service로 가든 main activity 로 가든..
                 //TODO: destroy consulting app
+//                Intent i = new Intent("com.ktpoc.tvcomm.consulting.request.finish");
+//                context.sendBroadcast(i);
+
                 ViewManager.getInstance().removeAllActivity();
+                Intent i = new Intent("com.ktpoc.tvcomm.consulting.noti");
+                i.putExtra("consultingState", "exit");
+                context.sendBroadcast(i);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -116,22 +123,6 @@ public class ConsultingReceiver extends BroadcastReceiver {
     public static boolean isRunningService(Context context, Class<?> cls) {
         boolean isRunning = false;
 
-//        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-//        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
-
-
-//        if (processInfos != null) {
-//            for (ActivityManager.RunningAppProcessInfo processInfo : processInfos) {
-////                if (processInfo.getClass().getName()!=null) {
-//
-//                    String str = processInfo.processName.getClass().toString();
-//                    Toast toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
-//                    toast.show();
-//                    return isRunning;
-//               // }
-//            }
-//        }
-//        return isRunning;
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningServiceInfo> info = activityManager.getRunningServices(Integer.MAX_VALUE);
 

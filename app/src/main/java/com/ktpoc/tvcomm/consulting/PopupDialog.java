@@ -33,11 +33,6 @@ public class PopupDialog extends Dialog{
         this.mContent = content;
         this.mLeftClickListener = leftListener;
         this.mRightClickListener = rightListener;
-//        WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
-//        lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-//        lpWindow.dimAmount = 0.0f;
-//        getWindow().setAttributes(lpWindow);
-
 
         setContentView(R.layout.activity_consulting_pop_up);
         mTitleView = (TextView) findViewById(R.id.text_view);
@@ -57,12 +52,5 @@ public class PopupDialog extends Dialog{
 
         }
     }
-
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-
-
 }
 
